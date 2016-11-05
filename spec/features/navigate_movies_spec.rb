@@ -3,7 +3,7 @@ require "rails_helper"
 describe "Navigating movies" do
   it "allows navigation from the detail page to the listing page" do
     # Arrange
-    movie = Movie.create(movies_attributes)
+    movie = Movie.create(movie_attributes)
 
     # Act
     visit movie_url(movie)
@@ -16,7 +16,7 @@ describe "Navigating movies" do
 
   it "allows navigation from the listing page to the detail page" do
     # Arrange
-    movie = Movie.create(movies_attributes)
+    movie = Movie.create(movie_attributes)
 
     # Act
     visit movies_url
