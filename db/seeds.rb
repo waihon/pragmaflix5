@@ -33,5 +33,12 @@ Movie.create!([
     total_gross: 40_200_000.00,
     description: "Patience Philips has a more than respectable career as a graphic designer",
     released_on: "2004-07-23"
+  },
+  {
+    title: 'Batman vs. Godzilla',
+    description: "An epic battle between The Caped Crusader and the fire-breathing dinosaur Gojira.",
+    rating: 'PG-13',
+    total_gross: 387623910,
+    released_on: 10.days.from_now
   }
 ])
