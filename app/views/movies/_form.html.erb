@@ -20,6 +20,22 @@
     <%= f.number_field :total_gross %>
   </p>
   <p>
+    <%= f.label :cast %>
+    <%= f.text_field :cast, size: 50 %>
+  </p>
+  <p>
+    <%= f.label :director %>
+    <%= f.text_field :director, size: 20 %>
+  </p>
+  <p>
+    <%= f.label :duration %>
+    <%= f.text_field :duration, size: 10 %>
+  </p>
+  <p>
+    <%= f.label :image_file_name %>
+    <%= f.text_field :image_file_name, size: 20 %>
+  </p>
+  <p>
     <%= f.submit %> |
     <%= link_to "Cancel", movies_path %>
   </p>
