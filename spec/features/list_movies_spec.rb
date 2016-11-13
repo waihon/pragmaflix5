@@ -13,6 +13,7 @@ describe "Viewing the list of movies" do
                           director: "Jon Favreau",
                           duration: "126 min",
                           image_file_name: "ironman.jpg")
+                          #image: open("#{Rails.root}/app/assets/images/ironman.jpg"))
 
     movie2 = Movie.create(title: "Superman",
                           rating: "PG",
@@ -23,6 +24,7 @@ describe "Viewing the list of movies" do
                           director: "Richard Donner",
                           duration: "143 min",
                           image_file_name: "superman.jpg")
+                          #image: open("#{Rails.root}/app/assets/images/superman.jpg"))
 
     movie3 = Movie.create(title: "Spider-Man",
                           rating: "PG-13",
@@ -33,6 +35,7 @@ describe "Viewing the list of movies" do
                           director: "Sam Raimi",
                           duration: "121 min",
                           image_file_name: "spiderman.jpg")
+                          #image: open("#{Rails.root}/app/assets/images/spiderman.jpg"))
 
     # Act
     visit movies_url
@@ -50,6 +53,7 @@ describe "Viewing the list of movies" do
     expect(page).to have_text("$318,412,101.00")
     expect(page).to have_text(movie1.cast)
     expect(page).to have_text(movie1.duration)
+    expect(page).to have_selector("img[src$='#{movie1.image_file_name}']")
   end
 
   it "does not show movies that yet to be released" do
