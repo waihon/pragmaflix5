@@ -31,7 +31,7 @@
   <footer>
     <nav>
       <%= link_to "Edit", edit_movie_path(@movie), class: "button" %> |
-      <%= link_to "Delete", @movie,
+      <%= link_to "Delete", @movie, class: "button",
                   method: :delete, data: { confirm: "Are you sure?" } %>
     </nav>
   </footer>

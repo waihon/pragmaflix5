@@ -4,38 +4,38 @@ describe "Viewing the list of movies" do
 
   it "shows the movies" do
     # Arrange
-    movie1 = Movie.create(title: "Iron Man",
-                          rating: "PG-13",
-                          total_gross: 318_412_101.00,
-                          description: "Tony Stark builds an armored suit to fight the throes of evil",
-                          released_on: "2008-05-02",
-                          cast: "Robert Downey Jr., Gwyneth Paltrow and Terrence Howard",
-                          director: "Jon Favreau",
-                          duration: "126 min",
-                          image_file_name: "ironman.jpg")
-                          #image: open("#{Rails.root}/app/assets/images/ironman.jpg"))
+    movie1 = Movie.create!(title: "Iron Man",
+                           rating: "PG-13",
+                           total_gross: 318_412_101.00,
+                           description: "Tony Stark builds an armored suit to fight the throes of evil",
+                           released_on: "2008-05-02",
+                           cast: "Robert Downey Jr., Gwyneth Paltrow and Terrence Howard",
+                           director: "Jon Favreau",
+                           duration: "126 min",
+                           image_file_name: "ironman.jpg")
+                           #image: open("#{Rails.root}/app/assets/images/ironman.jpg"))
 
-    movie2 = Movie.create(title: "Superman",
-                          rating: "PG",
-                          total_gross: 134218018.00,
-                          description: "Clark Kent grows up to be the greatest super-hero",
-                          released_on: "1978-12-15",
-                          cast: "Christopher Reeve, Margot Kidder and Gene Hackman",
-                          director: "Richard Donner",
-                          duration: "143 min",
-                          image_file_name: "superman.jpg")
-                          #image: open("#{Rails.root}/app/assets/images/superman.jpg"))
+    movie2 = Movie.create!(title: "Superman",
+                           rating: "PG",
+                           total_gross: 134218018.00,
+                           description: "Clark Kent grows up to be the greatest super-hero",
+                           released_on: "1978-12-15",
+                           cast: "Christopher Reeve, Margot Kidder and Gene Hackman",
+                           director: "Richard Donner",
+                           duration: "143 min",
+                           image_file_name: "superman.jpg")
+                           #image: open("#{Rails.root}/app/assets/images/superman.jpg"))
 
-    movie3 = Movie.create(title: "Spider-Man",
-                          rating: "PG-13",
-                          total_gross: 403706375.00,
-                          description: "Peter Parker gets bit by a genetically modified spider",
-                          released_on: "2002-05-03",
-                          cast: "Tobey Maguire, Kirsten Dunst and Willem Dafoe",
-                          director: "Sam Raimi",
-                          duration: "121 min",
-                          image_file_name: "spiderman.jpg")
-                          #image: open("#{Rails.root}/app/assets/images/spiderman.jpg"))
+    movie3 = Movie.create!(title: "Spider-Man",
+                           rating: "PG-13",
+                           total_gross: 403706375.00,
+                           description: "Peter Parker gets bit by a genetically modified spider",
+                           released_on: "2002-05-03",
+                           cast: "Tobey Maguire, Kirsten Dunst and Willem Dafoe",
+                           director: "Sam Raimi",
+                           duration: "121 min",
+                           image_file_name: "spiderman.jpg")
+                           #image: open("#{Rails.root}/app/assets/images/spiderman.jpg"))
 
     # Act
     visit movies_url
@@ -61,25 +61,29 @@ describe "Viewing the list of movies" do
                           rating: "PG-13",
                           total_gross: 318_412_101.00,
                           description: "Tony Stark builds an armored suit to fight the throes of evil",
-                          released_on: "2008-05-02")
+                          released_on: "2008-05-02",
+                          duration: "126 min")
 
     movie2 = Movie.create(title: "Superman",
                           rating: "PG",
                           total_gross: 134218018.00,
                           description: "Clark Kent grows up to be the greatest super-hero",
-                          released_on: "1978-12-15")
+                          released_on: "1978-12-15",
+                          duration: "143 min")
 
     movie3 = Movie.create(title: "Spider-Man",
                           rating: "PG-13",
                           total_gross: 403706375.00,
                           description: "Peter Parker gets bit by a genetically modified spider",
-                          released_on: "2002-05-03")
+                          released_on: "2002-05-03",
+                          duration: "121 min")
 
     movie4 = Movie.create(title: "New Hereo",
                           rating: "PG-13",
                           total_gross: 0.00,
                           description: "New Hero gets bit by a genetically modified snake",
-                          released_on: 1.day.from_now)
+                          released_on: 1.day.from_now,
+                          duration: "168 min")
 
     # Act
     visit movies_url
