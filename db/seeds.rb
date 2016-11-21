@@ -102,4 +102,20 @@ Movie.create!([
     rating: 'PG-13',
     total_gross: 387_623_910
   }
+  {
+    title: 'Batman v Superman: Dawn of Justice',
+    description:
+    %{
+      Fearing that the actions of Superman are left unchecked, Batman takes on
+      the Man of Steel, while the world wrestles with what kind of a hero it
+      really needs.
+    }.squish,
+    image_file_name: 'batman-vs-superman.jpg',
+    cast: 'Ben Affleck, Henry Cavill, Amy Adams',
+    released_on: '2016-03-25',
+    duration: '151 min',
+    director: 'Zack Snyder',
+    rating: 'PG-13',
+    total_gross: 330_249_062
+  }
 ])
