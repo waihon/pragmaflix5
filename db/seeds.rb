@@ -101,7 +101,7 @@ Movie.create!([
     director: 'Ishiro Honda',
     rating: 'PG-13',
     total_gross: 387_623_910
-  }
+  },
   {
     title: 'Batman v Superman: Dawn of Justice',
     description:
@@ -119,3 +119,11 @@ Movie.create!([
     total_gross: 330_249_062
   }
 ])
+
+movie = Movie.find_by(title: "Iron Man")
+movie.reviews.create!(name: "Roger Ebert", stars: 3, comment: "I laughed, I cried, I spilled my popcorn!")
+movie.reviews.create!(name: "Gene Siskel", stars: 5, comment: "I'm a better reviewer than he is.")
+movie.reviews.create!(name: "Peter Travers", stars: 4, comment: "It's been years since a movie superhero was this fierce and this funny.")
+
+movie = Movie.find_by(title: "Superman")
+movie.reviews.create!(name: "Elvis Mitchell", stars: 5, comment: "It's a bird, it's a plance, it's a blockbuster!")
