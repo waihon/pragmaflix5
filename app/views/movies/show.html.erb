@@ -27,6 +27,10 @@
   <p>
     <%= format_total_gross(@movie) %>
   </p>
+  <p>
+    <%= link_to pluralize(@movie.reviews.size, "review"), 
+                movie_reviews_path(@movie) %>
+  </p>
 
   <footer>
     <nav>
