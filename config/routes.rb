@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   root "movies#index"
   resources :movies do
     resources :reviews
+    member do
+      post "create_review"
+    end
   end
 end

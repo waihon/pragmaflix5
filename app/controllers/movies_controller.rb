@@ -5,6 +5,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
+    @review = @movie.reviews.new
   end
 
   def edit
@@ -34,6 +35,16 @@ class MoviesController < ApplicationController
     end
   end
 
+  def create_review
+    @movie = Movie.find(params[:id])
+    @review = @movie.reviews.build(review_params)
+    if @review.save
+      flash[:notice] = "Thanks for your review!"
+      @review = Review.new
+    end
+    render action: :show
+  end
+
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
@@ -45,5 +56,9 @@ private
   def movie_params
     params.require(:movie).permit(:title, :description, :rating, :released_on, :total_gross,
       :cast, :director, :duration, :image_file_name)
+  end
+
+  def review_params
+    params.require(:review).permit(:name, :stars, :comment)
   end
 end
