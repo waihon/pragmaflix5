@@ -54,3 +54,6 @@ end
 group :test do
   gem "capybara", "2.7.1"
 end
+
+# Make sample movie reviews with semi-realistic names and lorem comments
+gem "faker", "~> 1.6.3"

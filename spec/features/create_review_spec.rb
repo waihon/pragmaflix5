@@ -15,7 +15,7 @@ describe "Creating a new review" do
 
     fill_in "Comment", with: "I laughed, I cried, I spilled my popcorn!"
 
-    click_button "Post Review"
+    click_button "Create Review"
 
     expect(current_path).to eq(movie_reviews_path(movie))
 
@@ -28,7 +28,7 @@ describe "Creating a new review" do
     visit new_movie_review_url(movie)
 
     expect {
-      click_button "Post Review"
+      click_button "Create Review"
     }.not_to change(Review, :count)
 
     expect(page).to have_text("error")
@@ -58,7 +58,7 @@ describe "Creating a new review from a movie show page" do
     fill_in "Comment", with: "I laughed, I cried, I spilled my popcorn!"
 
     expect {
-      click_button "Post Review"
+      click_button "Create Review"
     }.to change(Review, :count).by(1)
 
     expect(current_path).to eq(create_review_movie_path(movie))
@@ -72,7 +72,7 @@ describe "Creating a new review from a movie show page" do
     visit movie_url(movie)
 
     expect {
-      click_button "Post Review"
+      click_button "Create Review"
     }.not_to change(Review, :count)
 
     expect(page).to have_text("error")

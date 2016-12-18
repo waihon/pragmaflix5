@@ -41,28 +41,7 @@ describe "Viewing an individual movie" do
     expect(page).to have_text("Flop!")
   end
 
-  it "shows the average number of stars if the movie have one or more reviews" do
-    movie = Movie.create(movie_attributes)
-
-    movie.reviews.create(review_attributes(stars:1))
-    movie.reviews.create(review_attributes(stars:3))
-    movie.reviews.create(review_attributes(stars:5))
-
-    visit movie_url(movie)
-
-    #expect(page).to have_text("3.0 stars")
-    expect(page).to have_text("***")
-  end
-
-  it "shows 'No reviews' if the movie doesn't have any reviwes" do
-    movie = Movie.create(movie_attributes)
-
-    visit movie_url(movie)
-
-    expect(page).to have_text("No reviews")
-  end
-
-  it "shows the number of reviews posted when there is one or more reviews posted" do
+  it "shows the number of reviews posted" do
     movie = Movie.create(movie_attributes)
 
     movie.reviews.create(review_attributes(stars: 1))
@@ -74,11 +53,23 @@ describe "Viewing an individual movie" do
     expect(page).to have_text("3 reviews")
   end
 
-  it "shows '0 reviews' when there is no reviews posted" do
+  it "shows the average number of stars if the movie have one or more reviews" do
+    movie = Movie.create(movie_attributes)
+
+    movie.reviews.create(review_attributes(stars:1))
+    movie.reviews.create(review_attributes(stars:3))
+    movie.reviews.create(review_attributes(stars:5))
+
+    visit movie_url(movie)
+
+    expect(page).to have_text("3.0 stars")
+  end
+
+  it "shows 'No reviews' if the movie doesn't have any reviwes" do
     movie = Movie.create(movie_attributes)
 
     visit movie_url(movie)
 
-    expect(page).to have_text("0 reviews")
+    expect(page).to have_text("No reviews")
   end
 end

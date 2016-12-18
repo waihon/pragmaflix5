@@ -1,4 +1,7 @@
 class Movie < ApplicationRecord
+  HIT = 300_000_000
+  FLOP = 50_000_000
+
   has_many :reviews, dependent: :destroy
 
   validates :title, :released_on, :duration, presence: true
@@ -16,11 +19,20 @@ class Movie < ApplicationRecord
   end
 
   def self.hits
-    where("total_gross >= ?", 300_000_000).order(total_gross: :desc)
+    where("total_gross >= ?", HIT).order(total_gross: :desc)
   end
 
   def self.flops
-    where("total_gross < ?", 50_000_000).order(total_gross: :asc)
+    #where("total_gross < ?", FLOP).order(total_gross: :asc).merge(not_cults)
+    where("total_gross < ?", FLOP).merge(not_cults).order(total_gross: :asc)
+  end
+
+  def self.cults
+    joins(:reviews).group("movies.id").having("count(movie_id) > 50").having("avg(stars) >= 4.0")
+  end
+
+  def self.not_cults
+    where.not(id: cults)
   end
 
   def self.recently_added
@@ -28,6 +40,18 @@ class Movie < ApplicationRecord
   end
 
   def flop?
-    total_gross.blank? || total_gross < 50_000_000.00
+    (total_gross.blank? || total_gross < FLOP) && !cult?
+  end
+
+  def average_stars
+    reviews.average(:stars)
+  end
+
+  def recent_reviews
+    reviews.order("created_at desc").limit(2)
+  end
+
+  def cult?
+    reviews.count > 50 && average_stars >= 4.0
   end
 end

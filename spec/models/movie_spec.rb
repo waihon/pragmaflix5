@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "A movie" do
-  it "is a flop if the total gross is less than $50M" do
+  it "is a flop if the total gross is less than $50M and it's not a cult classic" do
     # Arrange
     movie = Movie.new(total_gross: 49_999_999.99)
 
@@ -9,7 +9,7 @@ describe "A movie" do
     expect(movie.flop?).to eq(true)
   end
 
-  it "is a flop if the total gross is blank" do
+  it "is a flop if the total gross is blank and it's not a cult classic" do
     # Arrange
     movie = Movie.new
 
@@ -17,9 +17,21 @@ describe "A movie" do
     expect(movie.flop?).to eq(true)
   end
 
-  it "is not a flop if the gotal gross exceeds $50M" do
+  it "is not a flop if the total gross exceeds $50M" do
     # Arrange
     movie = Movie.new(total_gross: 50_000_000.00)
+
+    # Assert
+    expect(movie.flop?).to eq(false)
+  end
+
+  it "is not a flop if it is a cult classic even though its total gross is less $50M" do
+    # Arrange
+    movie = Movie.create(movie_attributes(total_gross: 49_999_999.99))
+
+    51.times do
+      movie.reviews.create(review_attributes(stars: 4))
+    end
 
     # Assert
     expect(movie.flop?).to eq(false)
@@ -58,7 +70,7 @@ describe "A movie" do
     expect(Movie.released).not_to include(movie)
   end
 
-  it "return released movies order with the most recently-released movie first" do
+  it "returns released movies order with the most recently-released movie first" do
     movie1 = Movie.create(movie_attributes(released_on: 3.months.ago))
     movie2 = Movie.create(movie_attributes(released_on: 2.months.ago))
     movie3 = Movie.create(movie_attributes(released_on: 1.months.ago))
@@ -183,7 +195,7 @@ describe "A movie" do
     expect(movie.reviews).to include(review2)
   end
 
-  it "deltes associated reviews" do
+  it "deletes associated reviews" do
     movie = Movie.create(movie_attributes)
 
     movie.reviews.create(review_attributes)
@@ -191,5 +203,75 @@ describe "A movie" do
     expect {
       movie.destroy
     }.to change(Review, :count).by(-1)
+  end
+
+  it "calculates the average number of review stars" do
+    movie = Movie.create(movie_attributes)
+
+    movie.reviews.create(review_attributes(stars: 1))
+    movie.reviews.create(review_attributes(stars: 3))
+    movie.reviews.create(review_attributes(stars: 5))
+
+    expect(movie.average_stars).to eq(3)
+  end
+
+  it "is a cult classic if it has more than 50 reviews and the average review is 4 stars or better" do
+    movie = Movie.create(movie_attributes)
+
+    51.times do
+      movie.reviews.create(review_attributes(stars: 4))
+    end
+
+    expect(movie.cult?).to eq(true)
+  end
+
+  it "is not a cult classic if it has 50 reviews or less even though the average reveiw is 4 stars or better" do
+    movie = Movie.create(movie_attributes)
+
+    50.times do
+      movie.reviews.create(review_attributes(stars: 4))
+    end
+
+    expect(movie.cult?).to eq(false)
+  end
+
+  it "is not a cult classic if its average review is less than 4 stars even though it has more than 50 reviews" do
+    movie = Movie.create(movie_attributes)
+
+    50.times do
+      movie.reviews.create(review_attributes(stars: 4))
+    end
+    movie.reviews.create(review_attributes(stars: 3))
+
+    expect(movie.cult?).to eq(false)
+  end
+
+  it "returns cult classics with 51 or more reviews and their average review is 4 stars or better" do
+    movie1 = Movie.create(movie_attributes(total_gross: 49_999_999))
+    51.times do
+      movie1.reviews.create(review_attributes(stars: 4))
+    end
+
+    movie2 = Movie.create(movie_attributes(total_gross: 49_999_999))
+    50.times do
+      movie2.reviews.create(review_attributes(stars: 4))
+    end
+    movie2.reviews.create(review_attributes(stars: 3))
+
+    expect(Movie.cults).to include(movie1)
+    expect(Movie.cults).not_to include(movie2)
+  end
+
+  it "return flop movies with total gross less than $50M and it's not a cult classic" do
+    movie1 = Movie.create(movie_attributes(total_gross: 49_999_999))
+    movie1.reviews.create(review_attributes(stars: 3))
+
+    movie2 = Movie.create(movie_attributes(total_gross: 49_999_999))
+    51.times do
+      movie2.reviews.create(review_attributes(stars: 4))
+    end
+
+    expect(Movie.flops).to include(movie1)
+    expect(Movie.flops).not_to include(movie2)
   end
 end

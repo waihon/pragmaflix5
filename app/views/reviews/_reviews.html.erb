@@ -1,0 +1,17 @@
+<ol id="reviews">
+  <% reviews.each do |review| %>
+    <li>
+      <span class="review"><%= pluralize(review.stars, "star") %></span>
+      <span class="user">by <%= review.name %></span>
+      <span class="date"><%= time_ago_in_words(review.created_at) %> ago</span>
+      <% unless nested %>
+        <%= link_to "Edit", edit_movie_review_path(@movie, review) %> |
+        <%= link_to "Delete", movie_review_path(@movie, review),
+          method: :delete, data: { confirm: "Are you sure?" } %>
+      <% end %>
+      <p>
+        &quot;<%= review.comment %>&quot;
+      </p>
+    </li>
+  <% end %>
+</ol>

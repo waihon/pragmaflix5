@@ -2,7 +2,7 @@
   <header>
     <%= image_for @movie %>
     <h1><%= @movie.title %></h1>
-    <h2>Released: <%= @movie.released_on %>
+    <h2>Released: <%= @movie.released_on %></h2>
   </header>
 
   <p>
@@ -27,9 +27,22 @@
   <p>
     <%= format_total_gross(@movie) %>
   </p>
+
+  <h3>Average Review</h3>
   <p>
-    <%= link_to pluralize(@movie.reviews.size, "review"),
-                movie_reviews_path(@movie) %>
+    <%= format_average_stars(@movie) %>
+  </p>
+
+  <% if @movie.recent_reviews.any? %>
+    <h3>Recent Reviews</h3>
+    <p>
+      <%= render "reviews/reviews", reviews: @movie.recent_reviews, nested: true %>
+    </p>
+  <% end %>
+
+  <p>
+    Read all <%= link_to pluralize(@movie.reviews.count, "review"),
+                         movie_reviews_path(@movie) %>
   </p>
 
   <footer>
