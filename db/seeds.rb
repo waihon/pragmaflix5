@@ -145,26 +145,6 @@ movie.reviews.create!(name: "Peter Travers", stars: 4, comment: "It's been years
 movie = Movie.find_by(title: "Superman")
 movie.reviews.create!(name: "Elvis Mitchell", stars: 5, comment: "It's a bird, it's a plance, it's a blockbuster!")
 
-Movie.create!([
-  {
-    title: 'Cult Classic',
-    description:
-    %{
-      We all know of a movie that didn't necessarily gross a ton at the box
-      office, but the few people who did watch the movie really loved it!
-      We call those movies cult classics. And to a specific group of fans
-      they are blockbusters.
-    }.squish,
-    image_file_name: 'cult_classic.jpg',
-    cast: 'Culten Affleckic, Cultenry Cavillic, Cultamy Adamsic',
-    released_on: '2016-08-31',
-    duration: '131 min',
-    director: 'Cultack Snyderic',
-    rating: 'PG-13',
-    total_gross: 49_999_999
-  }
-])
-
 movie = Movie.find_by(title: "Cult Classic")
 51.times do
   movie.reviews.create!(name: Faker::Name.name, stars: 4, comment: Faker::Lorem.paragraph)
