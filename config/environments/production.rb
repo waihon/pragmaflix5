@@ -86,7 +86,7 @@ Rails.application.configure do
 
   config.paperclip_defaults = {
     storage: :s3,
-    url: ":S3_DOMAIN_URL",
+    url: ":s3_domain_url",
     path: "/:class/:attachment/:id_partition/:style/:filename",
     s3_credentials: {
       bucket: ENV["AWS_BUCKET"],
