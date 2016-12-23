@@ -16,7 +16,7 @@ describe "Viewing an individual movie" do
     expect(page).to have_text(movie.cast)
     expect(page).to have_text(movie.director)
     expect(page).to have_text(movie.duration)
-    expect(page).to have_selector("img[src$='#{movie.image_file_name}']")
+    expect(page).to have_selector("img[src$='#{movie.image.url(:small)}']")
   end
 
   it "shows the total gross if the total gross exceeds $50M" do

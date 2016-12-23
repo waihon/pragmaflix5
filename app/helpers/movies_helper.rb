@@ -8,10 +8,10 @@ module MoviesHelper
   end
 
   def image_for(movie)
-    if movie.image_file_name.blank?
-      image_tag("placeholder.png", height: 150)
+    if movie.image.exists?
+      image_tag(movie.image.url(:small))
     else
-      image_tag(movie.image_file_name, height: 150)
+      image_tag("placeholder.png")
     end
   end
 

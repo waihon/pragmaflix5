@@ -62,3 +62,6 @@ end
 
 # Make sample movie reviews with semi-realistic names and lorem comments
 gem "faker", "~> 1.6.3"
+
+gem "paperclip", "4.3.2"
+gem "aws-sdk", "< 2.0"

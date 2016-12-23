@@ -4,13 +4,20 @@ class Movie < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
 
+  has_attached_file :image, styles: {
+    small: "90x133>",
+    thumb: "50x50>"
+  }
+
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
-  validates :image_file_name, allow_blank: true, format: {
-    with: /\w+\.(gif|jpg|png)\z/i,
-    message: "must reference a GIF, JPG, or PNG image"
-  }
+  # Validates that the actual content type of the image file, regardless of
+  # the file name extension, is a JPEG or PNG file.
+  validates_attachment :image,
+    content_type: { content_type: ["image/jpeg", "image/png"] },
+    size: { less_than: 1.megabyte }
+
   RATINGS = %w(G PG PG-13 R NC-17)
   validates :rating, inclusion: { in: RATINGS }
 
